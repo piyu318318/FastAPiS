@@ -1,6 +1,6 @@
-class UserDEtails:
+class UserDetails:
     def UserDetails(self, connection, userid):
-        cursor = connection.cursor(dictionary=True)  # Use dictionary=True to get results as a dictionary.
+        cursor = connection.cursor(dictionary=True)
 
         try:
             cursor.execute("SELECT username, userid, password FROM users WHERE userid = %s", (userid,))

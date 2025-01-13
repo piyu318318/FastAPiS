@@ -6,7 +6,7 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
 from Handler.Register import RegisterUser
 from Handler.Login import LoginUserClass
-from Handler.Users import UserDEtails
+from Handler.Users import UserDetails
 
 
 SECRET_KEY = "e720c4e4ef798f260b3395a09517c4a5672bf0d56d44a34ddcbb3a603d88b493"
@@ -25,7 +25,7 @@ class UserLoginBodyRequest(BaseModel):
     password: str
 
 
-def verify_token(token: str):
+def verifyToken(token: str):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         return payload  # The payload will contain the user information
@@ -34,7 +34,7 @@ def verify_token(token: str):
     except jwt.InvalidTokenError:
         raise HTTPException(status_code=401, detail="Invalid token")
 
-def get_current_user(token: str = Depends(verify_token)):
+def getCurrentUser(token: str = Depends(verifyToken)):
     return token  # Returns the payload of the decoded token
 
 # Initialize database connection
@@ -70,7 +70,7 @@ async def loginUser(user: UserLoginBodyRequest):
 
 
 @app.get("/fastapis/getUsersDetails/")
-async def getUsersDetails(userid: int, current_user: dict = Depends(get_current_user)):
+async def getUsersDetails(userid: int, current_user: dict = Depends(getCurrentUser)):
     if userid:
         UserDEtailsobj = UserDEtails()
         response = UserDEtailsobj.UserDetails(connection,userid)
