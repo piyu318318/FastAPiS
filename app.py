@@ -72,6 +72,6 @@ async def loginUser(user: UserLoginBodyRequest):
 @app.get("/fastapis/getUsersDetails/")
 async def getUsersDetails(userid: int, current_user: dict = Depends(getCurrentUser)):
     if userid:
-        UserDEtailsobj = UserDEtails()
-        response = UserDEtailsobj.UserDetails(connection,userid)
+        UserDetailsobj = UserDetails()
+        response = UserDetailsobj.UserDetails(connection,userid)
         return response
