@@ -3,12 +3,12 @@ class RegisterUser:
     def register(self,connection,username, email, password):
         cursor = connection.cursor()
         try:
-            cursor.execute("select * from users where email = %s",email)
+            cursor.execute("select * from users where emailid = %s",(email,))
             result = cursor.fetchone()
             if result:
                 return {"status": "400", "message": "already registered using this email"}
 
-            cursor.execute("select * from users where email = %s", username)
+            cursor.execute("select * from users where username = %s", (username,))
             result = cursor.fetchone()
             if result:
                 return {"status": "400", "message": "This Username already is in used please use another Username"}
