@@ -10,12 +10,16 @@ class databaseConnection:
             config = configparser.ConfigParser()
             config.read('database.properties')
 
-            host = config['DEFAULT']['host']
-            port = config['DEFAULT']['port']
-            database = config['DEFAULT']['database']
-            user = config['DEFAULT']['user']
-            password = config['DEFAULT']['password']
+            host = config['MYSQL']['host']
+            port = config['MYSQL']['port']
+            database = config['MYSQL']['database']
+            user = config['MYSQL']['user']
+            password = config['MYSQL']['password']
             connection = mysql.connector.connect(host=host,port=port, database=database, user=user, password = password)
+
+            #also return other configurations
+            ALGORITHM = config['CONFIGS']['ALGORITHM']
+            SECRET_KEY = config['CONFIGS']['SECRET_KEY']
 
             return connection
         except Exception as e:
